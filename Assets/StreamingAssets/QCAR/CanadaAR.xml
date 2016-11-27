@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
   <Tracking>
+    <ImageTarget name="FoxMarker" size="0.500000 0.483748" />
     <ImageTarget name="Pinguin" size="0.300000 0.313204" />
     <ImageTarget name="Cow" size="0.300000 0.315621" />
     <ImageTarget name="owl" size="1.000000 1.047902" />
     <ImageTarget name="Wall-E" size="0.300000 0.321103" />
-    <ImageTarget name="FoxMarker" size="0.300000 0.300000" />
   </Tracking>
 </QCARConfig>
