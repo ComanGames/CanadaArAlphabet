@@ -12,9 +12,7 @@ namespace Logic
         {
             TrackableBehaviour mTrackableBehaviour = GetComponent<TrackableBehaviour>();
             if (mTrackableBehaviour)
-            {
                 mTrackableBehaviour.RegisterTrackableEventHandler(this);
-            }
         }
 
         public void OnTrackableStateChanged(TrackableBehaviour.Status previousStatus, TrackableBehaviour.Status newStatus)
@@ -55,15 +53,11 @@ namespace Logic
 
             // Disable rendering:
             foreach (Renderer component in rendererComponents)
-            {
                 component.enabled = false;
-            }
 
             // Disable colliders:
             foreach (Collider component in colliderComponents)
-            {
                 component.enabled = false;
-            }
 
         }
         

@@ -14,6 +14,7 @@ namespace Logic
         public void Start ()
         {
             StartSearchForFoxMarker();
+            CharactersController.SetCharacterDetected(CharacterDetected);
         }
 
         private void StartSearchForFoxMarker()
@@ -23,17 +24,39 @@ namespace Logic
             FoxMarker.MarkerDetectedAction = MarkerDetected;
         }
 
+        public void CharacterDetected(ArCharacter character)
+        {
+            if (character == CharactersController.GetCurrent())
+            {
+                UserInterface.ShowMessage("Now go back to fox marker");
+                UserInterface.SetOutline(FoxMarker.Image, 0.5f);
+                CharactersController.MoveNext();
+                FoxMarker.MarkerDetectedAction = MarkerDetected;
+            }
+            else
+            {
+              //What we do if we find wrong character 
+            }
+
+        }
         public void MarkerDetected()
         {
-
             FoxMarker.MarkerDetectedAction = null;
-            UserInterface.ShowMessage("Great");
+            UserInterface.ShowMessage("Great. You found Fox Marker");
             UserInterface.HideOutlineImage();
+            Invoke("StartCharacterSearch", 2.0f);
         }
 
-        // Update is called once per frame
-        public void Update () {
-	
+        private ArCharacter _currentArCharacter;
+        private void StartCharacterSearch()
+        {
+            if (CharactersController.GetCurrent() != null)
+            {
+                _currentArCharacter = CharactersController.GetCurrent(); 
+                UserInterface.ShowMessage(string.Format("Find {0}", _currentArCharacter.CharacterName));
+                UserInterface.SetOutline(_currentArCharacter.OutlineSprite, 0.75f);
+            }
         }
+
     }
 }

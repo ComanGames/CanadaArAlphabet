@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Vuforia;
 
 namespace Characters
@@ -6,6 +7,10 @@ namespace Characters
     public class ArCharacter:MonoBehaviour, ITrackableEventHandler
     {
         public string CharacterName;
+        public bool IsActive;
+        public Sprite OutlineSprite;
+        public Action<ArCharacter> CharacterDetected;
+
         void Start()
         {
             TrackableBehaviour mTrackableBehaviour = GetComponent<TrackableBehaviour>();
@@ -27,6 +32,9 @@ namespace Characters
 
         private void OnTrackingFound()
         {
+            if(CharacterDetected!=null)
+                CharacterDetected(this);
+
             Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
             Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
 
@@ -41,8 +49,6 @@ namespace Characters
             {
                 component.enabled = true;
             }
-
-            Debug.Log("Trackable " + CharacterName + " found");
         }
 
 
@@ -63,7 +69,6 @@ namespace Characters
                 component.enabled = false;
             }
 
-            Debug.Log("Trackable " +CharacterName +" lost");
         }
 
     }
