@@ -9,6 +9,7 @@ namespace Characters
         public string CharacterName;
         public bool IsActive;
         public Sprite OutlineSprite;
+        public GameObject CharacterAnimation;
         public Action<ArCharacter> CharacterDetected;
 
         void Start()
@@ -20,6 +21,16 @@ namespace Characters
             }
         }
 
+        public void DisableAnim()
+        {
+            CharacterAnimation.SetActive(false);
+        }
+        public void StartAnimation(Action onAnimationEnd)
+        {
+           CharacterAnimation.SetActive(true);
+            ArCharacterAnimation anim = CharacterAnimation.GetComponent<ArCharacterAnimation>();
+            anim.OnAnimationDone = onAnimationEnd;
+        }
         public void OnTrackableStateChanged(TrackableBehaviour.Status previousStatus, TrackableBehaviour.Status newStatus)
         {
             if (newStatus == TrackableBehaviour.Status.DETECTED || newStatus == TrackableBehaviour.Status.TRACKED || newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)

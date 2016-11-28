@@ -26,19 +26,28 @@ namespace Logic
 
         public void CharacterDetected(ArCharacter character)
         {
-            if (character == CharactersController.GetCurrent())
+            ArCharacter currentCharacter = CharactersController.GetCurrent();
+            if (character == currentCharacter)
             {
-                UserInterface.ShowMessage("Now go back to fox marker");
-                UserInterface.SetOutline(FoxMarker.Image, 0.5f);
-                CharactersController.MoveNext();
-                FoxMarker.MarkerDetectedAction = MarkerDetected;
+                UserInterface.HideOutlineImage();
+                currentCharacter.StartAnimation(() => { BackToMarker(); });
             }
             else
             {
               //What we do if we find wrong character 
             }
-
         }
+
+        private void BackToMarker()
+        {
+
+            CharactersController.GetCurrent().DisableAnim();
+            UserInterface.ShowMessage("Now go back to fox marker");
+            UserInterface.SetOutline(FoxMarker.Image, 0.5f);
+            CharactersController.MoveNext();
+            FoxMarker.MarkerDetectedAction = MarkerDetected;
+        }
+
         public void MarkerDetected()
         {
             FoxMarker.MarkerDetectedAction = null;

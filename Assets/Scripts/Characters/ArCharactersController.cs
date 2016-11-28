@@ -20,6 +20,8 @@ namespace Characters
 
         public ArCharacter GetCurrent()
         {
+            if (_charactersQueue.Count == 0)
+                return null;
             return _charactersQueue.Peek();
         }
         public void MoveNext()
